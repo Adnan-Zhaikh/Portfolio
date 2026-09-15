@@ -2,6 +2,7 @@ import Image from "next/image";
 import { projects } from "@/lib/projects";
 
 const nav = [
+  { href: "#experience", label: "Experience" },
   { href: "#work", label: "Work" },
   { href: "#now", label: "Now" },
   { href: "#contact", label: "Contact" },
@@ -62,6 +63,33 @@ export default function Home() {
                 className="h-auto w-full grayscale"
               />
             </div>
+          </div>
+        </section>
+
+        {/* ---------- Experience ---------- */}
+        <section id="experience" className="border-t border-line py-12 md:py-16">
+          <h2 className="font-mono text-sm font-semibold text-ink-soft">
+            Experience
+          </h2>
+          <div className="mt-6">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 className="font-mono text-lg font-semibold">
+                Faculty and Assistant In-Charge at CareerCreators
+              </h3>
+              <span className="shrink-0 font-mono text-xs text-ink-faint">
+                Apr 2024 &ndash; May 2026
+              </span>
+            </div>
+            <p className="mt-3 max-w-prose text-[1.0625rem] leading-[1.7] text-ink">
+              Taught practical computer skills to students, covering MS
+              Office, design software, and the fundamentals of web
+              development and programming. Also helped run the center as
+              assistant in-charge alongside teaching.
+            </p>
+            <p className="mt-3 font-mono text-xs text-ink-faint">
+              MS Office, Photoshop, Illustrator, CorelDraw, Canva, HTML5,
+              CSS, JavaScript, Python basics
+            </p>
           </div>
         </section>
 

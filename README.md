@@ -1,22 +1,7 @@
 # Adnan Shaikh — portfolio
 
 Built with Next.js (App Router) and Tailwind CSS. Content is pulled from
-the real GitHub repos at github.com/Adnan-Zhaikh — see `lib/projects.ts`
-to edit the project log.
-
-## Run locally
-
-```
-npm install
-npm run dev
-```
-
-Then open http://localhost:3000.
-
-## Deploy
-
-Push this to a GitHub repo and import it on vercel.com — no extra config
-needed, it's a standard Next.js app.
+the real GitHub repos at github.com/Adnan-Zhaikh
 
 ## Design notes
 

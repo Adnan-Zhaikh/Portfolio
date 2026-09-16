@@ -20,11 +20,11 @@ export default function Home() {
       </a>
 
       <header className="border-b border-line">
-        <div className="mx-auto flex max-w-content items-center justify-between gap-4 px-4 py-4 sm:px-6 md:px-10">
+        <div className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-4 sm:flex-nowrap sm:px-6 md:px-10">
           <a href="#top" className="shrink-0 font-mono text-sm font-medium">
             Adnan Shaikh
           </a>
-          <nav className="flex min-w-0 gap-4 overflow-x-auto font-mono text-xs text-ink-soft sm:gap-6 sm:text-sm">
+          <nav className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-ink-soft sm:flex-nowrap sm:gap-6 sm:text-sm">
             {nav.map((item) => (
               <a
                 key={item.href}

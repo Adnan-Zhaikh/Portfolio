@@ -19,13 +19,17 @@ export default function Home() {
       </a>
 
       <header className="border-b border-line">
-        <div className="mx-auto flex max-w-content items-center justify-between px-6 py-4 md:px-10">
-          <a href="#top" className="font-mono text-sm font-medium">
+        <div className="mx-auto flex max-w-content items-center justify-between gap-4 px-4 py-4 sm:px-6 md:px-10">
+          <a href="#top" className="shrink-0 font-mono text-sm font-medium">
             Adnan Shaikh
           </a>
-          <nav className="flex gap-6 font-mono text-sm text-ink-soft">
+          <nav className="flex min-w-0 gap-4 overflow-x-auto font-mono text-xs text-ink-soft sm:gap-6 sm:text-sm">
             {nav.map((item) => (
-              <a key={item.href} href={item.href} className="link-underline">
+              <a
+                key={item.href}
+                href={item.href}
+                className="link-underline shrink-0 whitespace-nowrap"
+              >
                 {item.label}
               </a>
             ))}
@@ -33,18 +37,21 @@ export default function Home() {
         </div>
       </header>
 
-      <main id="main" className="mx-auto max-w-content px-6 md:px-10">
+      <main id="main" className="mx-auto max-w-content px-4 sm:px-6 md:px-10">
         {/* ---------- Hero ---------- */}
-        <section id="top" className="grid gap-10 pb-16 pt-16 md:grid-cols-[1fr_120px] md:gap-16 md:pb-24 md:pt-24">
-          <div>
-            <h1 className="font-mono text-[2.5rem] font-semibold leading-[1.05] tracking-tight md:text-[4.25rem]">
+        <section
+          id="top"
+          className="grid gap-6 pb-12 pt-10 sm:pb-16 sm:pt-16 md:grid-cols-[1fr_120px] md:items-start md:gap-16 md:pb-24 md:pt-24"
+        >
+          <div className="order-2 md:order-none">
+            <h1 className="font-mono text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-[4.25rem]">
               Adnan Shaikh
             </h1>
-            <p className="mt-4 font-mono text-lg text-ink-soft md:text-xl">
+            <p className="mt-4 font-mono text-base text-ink-soft sm:text-lg md:text-xl">
               Computer science student
               <span className="caret" aria-hidden="true" />
             </p>
-            <p className="mt-8 max-w-prose text-[1.0625rem] leading-[1.7] text-ink">
+            <p className="mt-6 max-w-prose text-base leading-[1.7] text-ink sm:mt-8 sm:text-[1.0625rem]">
               I'm a BSc Computer Science student working mostly in TypeScript
               and Python, with React, Next.js, and PostgreSQL as my usual
               stack. Most of what I build starts as a way to get better at
@@ -53,7 +60,7 @@ export default function Home() {
               coursework.
             </p>
           </div>
-          <div className="hidden md:block">
+          <div className="order-1 w-16 md:order-none md:w-auto">
             <div className="border border-line p-1">
               <Image
                 src="https://avatars.githubusercontent.com/u/271157250?v=4"
@@ -67,20 +74,20 @@ export default function Home() {
         </section>
 
         {/* ---------- Experience ---------- */}
-        <section id="experience" className="border-t border-line py-12 md:py-16">
+        <section id="experience" className="border-t border-line py-10 sm:py-12 md:py-16">
           <h2 className="font-mono text-sm font-semibold text-ink-soft">
             Experience
           </h2>
           <div className="mt-6">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 className="font-mono text-lg font-semibold">
+            <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-4">
+              <h3 className="font-mono text-base font-semibold sm:text-lg">
                 Faculty and Assistant In-Charge at CareerCreators
               </h3>
               <span className="shrink-0 font-mono text-xs text-ink-faint">
                 Apr 2024 &ndash; May 2026
               </span>
             </div>
-            <p className="mt-3 max-w-prose text-[1.0625rem] leading-[1.7] text-ink">
+            <p className="mt-3 max-w-prose text-base leading-[1.7] text-ink sm:text-[1.0625rem]">
               Taught practical computer skills to students, covering MS
               Office, design software, and the fundamentals of web
               development and programming. Also helped run the center as
@@ -94,9 +101,9 @@ export default function Home() {
         </section>
 
         {/* ---------- Now ---------- */}
-        <section id="now" className="border-t border-line py-12 md:py-16">
+        <section id="now" className="border-t border-line py-10 sm:py-12 md:py-16">
           <h2 className="font-mono text-xl font-semibold">Right now</h2>
-          <p className="mt-4 max-w-prose text-[1.0625rem] leading-[1.7] text-ink">
+          <p className="mt-4 max-w-prose text-base leading-[1.7] text-ink sm:text-[1.0625rem]">
             Working through LeetCode most days, going deeper into data
             structures, and starting to pick up data science. Longer term,
             the plan is to ship real products and eventually start a small
@@ -105,8 +112,8 @@ export default function Home() {
         </section>
 
         {/* ---------- Work + Sidebar ---------- */}
-        <div className="grid gap-12 border-t border-line py-12 md:grid-cols-[240px_1fr] md:gap-16 md:py-16">
-          <aside className="md:sticky md:top-20 md:self-start">
+        <div className="grid gap-10 border-t border-line py-10 sm:gap-12 sm:py-12 md:grid-cols-[240px_1fr] md:gap-16 md:py-16">
+          <aside className="order-2 md:order-none md:sticky md:top-20 md:self-start">
             <div>
               <h2 className="font-mono text-sm font-semibold text-ink-soft">
                 Stack
@@ -180,7 +187,7 @@ export default function Home() {
             </div>
           </aside>
 
-          <div id="work">
+          <div id="work" className="order-1 md:order-none">
             <h2 className="font-mono text-sm font-semibold text-ink-soft">
               Things I've built
             </h2>
@@ -190,8 +197,8 @@ export default function Home() {
                   key={project.name}
                   className={`py-8 ${index !== 0 ? "border-t border-line" : ""}`}
                 >
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="font-mono text-lg font-semibold">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                    <h3 className="font-mono text-base font-semibold sm:text-lg">
                       {project.name}
                     </h3>
                     <span className="shrink-0 font-mono text-xs text-ink-faint">
@@ -220,8 +227,8 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-line">
-        <div className="mx-auto max-w-content px-6 py-8 font-mono text-xs text-ink-faint md:px-10">
-          Built with Next.js. Last updated September 2026.
+        <div className="mx-auto max-w-content px-4 py-6 font-mono text-xs text-ink-faint sm:px-6 sm:py-8 md:px-10">
+          Last updated September 2026.
         </div>
       </footer>
     </>

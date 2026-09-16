@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Mail, Linkedin, Github, Code2 } from "lucide-react";
 import { projects } from "@/lib/projects";
 
 const nav = [
@@ -28,7 +29,7 @@ export default function Home() {
               <a
                 key={item.href}
                 href={item.href}
-                className="link-underline shrink-0 whitespace-nowrap"
+                className="nav-link shrink-0 whitespace-nowrap"
               >
                 {item.label}
               </a>
@@ -148,38 +149,42 @@ export default function Home() {
                 <li>
                   <a
                     href="mailto:adnanibrahimshaikh@gmail.com"
-                    className="link-underline"
+                    className="link-underline inline-flex items-center gap-2"
                   >
+                    <Mail size={15} strokeWidth={1.75} className="shrink-0 text-ink-faint" />
                     adnanibrahimshaikh@gmail.com
                   </a>
                 </li>
                 <li>
                   <a
                     href="https://www.linkedin.com/in/adnan-shaikh-4763233b2"
-                    className="link-underline"
+                    className="link-underline inline-flex items-center gap-2"
                     target="_blank"
                     rel="noreferrer"
                   >
+                    <Linkedin size={15} strokeWidth={1.75} className="shrink-0 text-ink-faint" />
                     LinkedIn
                   </a>
                 </li>
                 <li>
                   <a
                     href="https://github.com/Adnan-Zhaikh"
-                    className="link-underline"
+                    className="link-underline inline-flex items-center gap-2"
                     target="_blank"
                     rel="noreferrer"
                   >
+                    <Github size={15} strokeWidth={1.75} className="shrink-0 text-ink-faint" />
                     GitHub
                   </a>
                 </li>
                 <li>
                   <a
                     href="https://leetcode.com/AdnanZhaikh"
-                    className="link-underline"
+                    className="link-underline inline-flex items-center gap-2"
                     target="_blank"
                     rel="noreferrer"
                   >
+                    <Code2 size={15} strokeWidth={1.75} className="shrink-0 text-ink-faint" />
                     LeetCode
                   </a>
                 </li>

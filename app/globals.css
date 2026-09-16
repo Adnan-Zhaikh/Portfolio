@@ -52,10 +52,34 @@ button:focus-visible {
   text-decoration-thickness: 2px;
 }
 
-/* A single, quiet, ongoing detail tied to the terminal voice of the source
-   material (his GitHub README is built around a typed terminal prompt).
-   Not a page-load reveal, not scroll-triggered — just a caret that blinks
-   the way one does at an empty prompt. */
+/* Header nav only: at the nav's small mobile text size, the same
+   underline offset/thickness that reads as subtle on desktop looks
+   thick and disproportionate. Plain text at rest on narrow screens,
+   same treatment as everywhere else from `sm` up. */
+.nav-link {
+  text-decoration: none;
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: #1F6F5C;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+@media (min-width: 640px) {
+  .nav-link {
+    text-decoration: underline;
+    text-decoration-color: #D8D6CC;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 150ms ease, text-decoration-thickness 150ms ease;
+  }
+  .nav-link:hover {
+    text-decoration-color: #1F6F5C;
+    text-decoration-thickness: 2px;
+  }
+}
+
 @keyframes caret-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }

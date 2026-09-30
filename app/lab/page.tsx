@@ -3,15 +3,9 @@
 import Image from "next/image";
 import { Mail, Linkedin, Github, Code2 } from "lucide-react";
 import ParallaxScene from "@/components/lab/ParallaxScene";
-import TechPath from "@/components/lab/TechPath";
+import SkillsOrb from "@/components/lab/SkillsOrb";
+import CopyEmailButton from "@/components/lab/CopyEmailButton";
 import { projects } from "@/lib/projects";
-
-const nav = [
-  { href: "#stack", label: "Stack" },
-  { href: "#experience", label: "Experience" },
-  { href: "#work", label: "Work" },
-  { href: "#contact", label: "Contact" },
-];
 
 const navLinkClass =
   "shrink-0 whitespace-nowrap font-mono text-xs text-[#A6A9C4] transition-colors hover:text-[#ECEEF5] sm:text-sm";
@@ -23,27 +17,37 @@ export default function LabPage() {
   return (
     <div className="text-[#ECEEF5]">
       <div
-        className="fixed inset-0 -z-20 bg-[#14162A]"
+        className="fixed inset-0 -z-20 bg-[#101227]"
         aria-hidden="true"
       />
       <ParallaxScene />
 
       <div className="relative z-10">
-        <header className="border-b border-[#2A2D4A] bg-[#14162A]/90">
-          <div className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-4 sm:flex-nowrap sm:px-6 md:px-10">
-            <a href="#hero" className="shrink-0 font-mono text-sm font-medium">
+        <header className="sticky top-4 z-20 mx-4 sm:mx-6 md:mx-10">
+          <div className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-full border border-[#2A2D4A] bg-[#14162A]/85 px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6">
+            <a href="#hero" className="shrink-0 font-mono text-sm font-semibold">
               Adnan Shaikh
             </a>
-            <nav className="flex flex-wrap gap-x-4 gap-y-1 sm:flex-nowrap sm:gap-6">
-              {nav.map((item) => (
-                <a key={item.href} href={item.href} className={navLinkClass}>
-                  {item.label}
-                </a>
-              ))}
+            <nav className="flex flex-wrap items-center gap-x-4 gap-y-1 sm:flex-nowrap sm:gap-6">
+              <a href="#stack" className={navLinkClass}>
+                Stack
+              </a>
+              <a href="#experience" className={navLinkClass}>
+                Experience
+              </a>
+              <a href="#work" className={navLinkClass}>
+                Work
+              </a>
               <a href="/" className={navLinkClass}>
-                Classic version
+                Classic
               </a>
             </nav>
+            <a
+              href="#contact"
+              className="shrink-0 whitespace-nowrap rounded-full bg-[#ECEEF5] px-4 py-1.5 font-mono text-xs font-medium text-[#14162A] transition-colors hover:bg-white"
+            >
+              Get in touch &rarr;
+            </a>
           </div>
         </header>
 
@@ -93,7 +97,7 @@ export default function LabPage() {
               Stack
             </h2>
             <div className="mt-6">
-              <TechPath />
+              <SkillsOrb />
             </div>
           </section>
 
@@ -176,16 +180,18 @@ export default function LabPage() {
             <h2 className="font-mono text-sm font-semibold text-[#A6A9C4]">
               Get in touch
             </h2>
-            <ul className="mt-6 space-y-3 text-[0.9375rem]">
-              <li>
-                <a
-                  href="mailto:adnanibrahimshaikh@gmail.com"
-                  className={`${linkClass} inline-flex items-center gap-2`}
-                >
-                  <Mail size={15} strokeWidth={1.75} className="shrink-0 text-[#6E7191]" />
-                  adnanibrahimshaikh@gmail.com
-                </a>
-              </li>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="mailto:adnanibrahimshaikh@gmail.com"
+                className="inline-flex items-center gap-2 rounded-full bg-[#ECEEF5] px-5 py-2.5 font-mono text-sm font-medium text-[#14162A] transition-colors hover:bg-white"
+              >
+                <Mail size={16} strokeWidth={2} />
+                adnanibrahimshaikh@gmail.com
+              </a>
+              <CopyEmailButton email="adnanibrahimshaikh@gmail.com" />
+            </div>
+
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-[0.9375rem]">
               <li>
                 <a
                   href="https://www.linkedin.com/in/adnan-shaikh-4763233b2"

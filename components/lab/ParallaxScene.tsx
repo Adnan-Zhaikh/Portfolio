@@ -1,42 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type MutableRefObject, type ReactNode } from "react";
+import { useEffect, useRef, useState, type MutableRefObject } from "react";
 import { createPortal } from "react-dom";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Torus, Icosahedron, Box, Sphere, Octahedron, Stars } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 import * as THREE from "three";
 
 type ScrollRef = MutableRefObject<number>;
-
-function Layer({
-  scrollRef,
-  depth,
-  travel,
-  spin,
-  children,
-}: {
-  scrollRef: ScrollRef;
-  depth: number;
-  travel: number;
-  spin: number;
-  children: ReactNode;
-}) {
-  const group = useRef<THREE.Group>(null);
-
-  useFrame((_, delta) => {
-    const g = group.current;
-    if (!g) return;
-    g.position.y = scrollRef.current * travel;
-    g.rotation.y += spin * delta;
-    g.rotation.x += spin * 0.6 * delta;
-  });
-
-  return (
-    <group ref={group} position={[0, 0, depth]}>
-      {children}
-    </group>
-  );
-}
 
 function StarOrbit({ scrollRef }: { scrollRef: ScrollRef }) {
   const group = useRef<THREE.Group>(null);
@@ -120,39 +90,13 @@ export default function ParallaxScene() {
   const scene = (
     <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 8.5], fov: 50 }} dpr={[1, 1.5]}>
-        <color attach="background" args={["#14162A"]} />
+        <color attach="background" args={["#101227"]} />
+        <fog attach="fog" args={["#101227", 8, 26]} />
         <ambientLight intensity={0.9} />
         <directionalLight position={[3, 4, 5]} intensity={0.6} />
 
         <ScrollRig scrollRef={scrollRef} />
         <StarOrbit scrollRef={scrollRef} />
-
-        {/* Far layer: slow drift, slow spin, dim slate blue */}
-        <Layer scrollRef={scrollRef} depth={-9} travel={-2} spin={0.05}>
-          <Torus args={[1, 0.3, 16, 48]} position={[-2.6, 1, 0]}>
-            <meshStandardMaterial color="#3A3D66" wireframe />
-          </Torus>
-          <Octahedron args={[0.9]} position={[2.6, -1.5, 0]}>
-            <meshStandardMaterial color="#3A3D66" wireframe />
-          </Octahedron>
-        </Layer>
-
-        {/* Mid layer */}
-        <Layer scrollRef={scrollRef} depth={-4.5} travel={-4} spin={0.15}>
-          <Icosahedron args={[1.1]} position={[2.1, 0.5, 0]}>
-            <meshStandardMaterial color="#5C6099" wireframe />
-          </Icosahedron>
-          <Box args={[1.3, 1.3, 1.3]} position={[-2.3, -1, 0]}>
-            <meshStandardMaterial color="#5C6099" wireframe />
-          </Box>
-        </Layer>
-
-        {/* Near layer: fastest, closest to camera, bright accent teal */}
-        <Layer scrollRef={scrollRef} depth={-1.5} travel={-6.5} spin={0.3}>
-          <Sphere args={[0.5, 24, 24]} position={[0, 1.6, 0]}>
-            <meshStandardMaterial color="#4FD1B3" wireframe />
-          </Sphere>
-        </Layer>
       </Canvas>
     </div>
   );

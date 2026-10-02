@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Mail, Linkedin, Github, Code2 } from "lucide-react";
-import ParallaxScene from "@/components/lab/Parallaxscene";
+import ParallaxScene from "@/components/lab/ParallaxScene";
 import SkillsOrb from "@/components/lab/SkillsOrb";
 import CopyEmailButton from "@/components/lab/CopyEmailButton";
 import { projects } from "@/lib/projects";

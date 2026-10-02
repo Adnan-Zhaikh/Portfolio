@@ -1,225 +1,240 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Html, OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
-import type { IconBaseProps, IconType } from "react-icons";
-import {
-  SiPython,
-  SiOpenjdk,
-  SiReact,
-  SiNextdotjs,
-  SiPostgresql,
-  SiPrisma,
-  SiSupabase,
-  SiMysql,
-  SiCplusplus,
-  SiJavascript,
-  SiTypescript,
-  SiHtml5,
-  SiFastapi,
-  SiSqlite,
-  SiVercel,
-  SiRender,
-  SiGit,
-  SiLinux,
-  SiTailwindcss,
-  SiNodedotjs,
-} from "react-icons/si";
-import { DiCss3, DiPhotoshop, DiIllustrator } from "react-icons/di";
-import { FaMicrosoft } from "react-icons/fa6";
+import Image from "next/image";
+import { Mail, Linkedin, Github, Code2 } from "lucide-react";
+import ParallaxScene from "@/components/lab/Parallaxscene";
+import SkillsOrb from "@/components/lab/SkillsOrb";
+import CopyEmailButton from "@/components/lab/CopyEmailButton";
+import { projects } from "@/lib/projects";
 
-// react-icons has no dedicated Canva mark, so this stands in for it as a
-// plain brush glyph, in the same IconType shape as every other icon here.
-function CanvaGlyph({ size = 18, color = "#00C4CC" }: IconBaseProps) {
+const navLinkClass =
+  "shrink-0 whitespace-nowrap font-mono text-xs text-[#A6A9C4] transition-colors hover:text-[#ECEEF5] sm:text-sm";
+
+const linkClass =
+  "underline decoration-[#2A2D4A] decoration-1 underline-offset-[3px] transition-[color,text-decoration-color] hover:decoration-[#4FD1B3]";
+
+export default function LabPage() {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle cx="12" cy="12" r="9.5" stroke={color} strokeWidth="1.6" />
-      <path
-        d="M7.5 15.5c1.1-4 2.6-7 4.6-7 1.3 0 1.9 1.1 1.4 2.4-.6 1.6-2.2 2.7-3.6 2.7-1.1 0-1.8-.7-1.8-1.7 0-2 2-3.9 4.1-3.9"
-        stroke={color}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-type Skill = {
-  label: string;
-  Icon: IconType;
-  color: string;
-};
-
-const SKILLS: Skill[] = [
-  { label: "Python", Icon: SiPython, color: "#3776AB" },
-  { label: "Java", Icon: SiOpenjdk, color: "#EA2D2E" },
-  { label: "React", Icon: SiReact, color: "#61DAFB" },
-  { label: "Next.js", Icon: SiNextdotjs, color: "#ECEEF5" },
-  { label: "PostgreSQL", Icon: SiPostgresql, color: "#4169E1" },
-  { label: "Prisma", Icon: SiPrisma, color: "#8C9EFF" },
-  { label: "Supabase", Icon: SiSupabase, color: "#3ECF8E" },
-  { label: "MySQL", Icon: SiMysql, color: "#4479A1" },
-  { label: "C++", Icon: SiCplusplus, color: "#00599C" },
-  { label: "JavaScript", Icon: SiJavascript, color: "#F7DF1E" },
-  { label: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
-  { label: "HTML", Icon: SiHtml5, color: "#E34F26" },
-  { label: "CSS", Icon: DiCss3, color: "#3E9BE0" },
-  { label: "FastAPI", Icon: SiFastapi, color: "#009688" },
-  { label: "SQLite", Icon: SiSqlite, color: "#5DADE2" },
-  { label: "Vercel", Icon: SiVercel, color: "#ECEEF5" },
-  { label: "Render", Icon: SiRender, color: "#46E3B7" },
-  { label: "Photoshop", Icon: DiPhotoshop, color: "#31A8FF" },
-  { label: "Illustrator", Icon: DiIllustrator, color: "#FF9A00" },
-  { label: "Canva", Icon: CanvaGlyph, color: "#00C4CC" },
-  { label: "Git", Icon: SiGit, color: "#F05032" },
-  { label: "Linux", Icon: SiLinux, color: "#FCC624" },
-  { label: "Tailwind", Icon: SiTailwindcss, color: "#38BDF8" },
-  { label: "Node.js", Icon: SiNodedotjs, color: "#339933" },
-  { label: "Microsoft", Icon: FaMicrosoft, color: "#F25022" },
-];
-
-// Even distribution of `count` points on a sphere of the given radius, via
-// the golden-angle spiral. Sampling at i+0.5 (instead of i) keeps a point
-// off each exact pole, so nothing sits at the one spot where the sphere's
-// projection is most compressed and neighbors would crowd together.
-function fibonacciSphere(count: number, radius: number): THREE.Vector3[] {
-  const points: THREE.Vector3[] = [];
-  const goldenAngle = Math.PI * (3 - Math.sqrt(5));
-  for (let i = 0; i < count; i++) {
-    const y = 1 - ((i + 0.5) / count) * 2;
-    const r = Math.sqrt(Math.max(0, 1 - y * y));
-    const theta = goldenAngle * i;
-    points.push(
-      new THREE.Vector3(
-        Math.cos(theta) * r * radius,
-        y * radius,
-        Math.sin(theta) * r * radius
-      )
-    );
-  }
-  return points;
-}
-
-// A visible "grid globe": a sphere built only from its wireframe latitude
-// and longitude lines, sitting just inside the ring of icons.
-function GridGlobe({ radius }: { radius: number }) {
-  return (
-    <mesh>
-      <sphereGeometry args={[radius, 20, 14]} />
-      <meshBasicMaterial color="#3A3D66" wireframe transparent opacity={0.45} />
-    </mesh>
-  );
-}
-
-function SkillNode({
-  skill,
-  position,
-}: {
-  skill: Skill;
-  position: THREE.Vector3;
-}) {
-  const { Icon, label, color } = skill;
-  const elRef = useRef<HTMLDivElement>(null);
-  const normal = useMemo(() => position.clone().normalize(), [position]);
-
-  // Nodes don't move (the camera orbits instead), so "facing the camera"
-  // is just the dot product of each node's outward normal with the
-  // direction to the camera. Front-of-globe icons stay fully visible;
-  // ones rotated round the back fade out instead of overlapping the
-  // front set or showing through as ghost text.
-  useFrame(({ camera }) => {
-    const el = elRef.current;
-    if (!el) return;
-    const camDir = camera.position.clone().normalize();
-    const facing = normal.dot(camDir);
-    const opacity = THREE.MathUtils.clamp((facing + 0.25) / 0.55, 0, 1);
-    el.style.opacity = String(opacity);
-    el.style.pointerEvents = opacity > 0.5 ? "auto" : "none";
-  });
-
-  return (
-    <Html position={position} center occlude={false} zIndexRange={[10, 0]}>
+    <div className="text-[#ECEEF5]">
       <div
-        ref={elRef}
-        className="flex flex-col items-center gap-1"
-        style={{ opacity: 0 }}
-      >
-        <div
-          className="flex h-8 w-8 items-center justify-center rounded-full border"
-          style={{ background: "#1B1E38", borderColor: "#2A2D4A" }}
-        >
-          <Icon size={16} color={color} />
-        </div>
-        <span className="whitespace-nowrap font-mono text-[8px] text-[#A6A9C4]">
-          {label}
-        </span>
+        className="fixed inset-0 -z-20 bg-[#101227]"
+        aria-hidden="true"
+      />
+      <ParallaxScene />
+
+      <div className="relative z-10">
+        <header className="sticky top-4 z-20 mx-4 sm:mx-6 md:mx-10">
+          <div className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-full border border-[#2A2D4A] bg-[#14162A]/85 px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6">
+            <a href="#hero" className="shrink-0 font-mono text-sm font-semibold">
+              Adnan Shaikh
+            </a>
+            <nav className="hidden items-center gap-x-4 gap-y-1 sm:flex sm:gap-6">
+              <a href="#stack" className={navLinkClass}>
+                Stack
+              </a>
+              <a href="#experience" className={navLinkClass}>
+                Experience
+              </a>
+              <a href="#work" className={navLinkClass}>
+                Work
+              </a>
+              <a href="/" className={navLinkClass}>
+                Classic
+              </a>
+            </nav>
+            <a
+              href="#contact"
+              className="shrink-0 whitespace-nowrap rounded-full bg-[#ECEEF5] px-4 py-1.5 font-mono text-xs font-medium text-[#14162A] transition-colors hover:bg-white"
+            >
+              Get in touch &rarr;
+            </a>
+          </div>
+        </header>
+
+        <main className="mx-auto max-w-content px-4 sm:px-6 md:px-10">
+          {/* ---------- Hero ---------- */}
+          <section
+            id="hero"
+            className="flex flex-col gap-8 border-t-0 py-20 sm:flex-row sm:items-center sm:justify-between sm:py-28"
+          >
+            <div>
+              <h1 className="font-mono text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl md:text-[4.25rem]">
+                Adnan Shaikh
+              </h1>
+              <p className="mt-4 font-mono text-base text-[#A6A9C4] sm:text-lg md:text-xl">
+                Computer science student
+                <span
+                  aria-hidden="true"
+                  className="ml-1 inline-block h-[1em] w-[0.5ch] animate-pulse bg-[#4FD1B3] align-middle"
+                />
+              </p>
+              <p className="mt-6 max-w-prose text-base leading-[1.7] text-[#ECEEF5]/90 sm:text-[1.0625rem]">
+                I'm a BSc Computer Science student working mostly in
+                TypeScript and Python, with React, Next.js, and PostgreSQL as
+                my usual stack. This page is the same portfolio, rebuilt as a
+                scroll-driven 3D scene.
+              </p>
+            </div>
+            <div className="w-20 shrink-0 sm:w-28">
+              <div className="border border-[#2A2D4A] p-1">
+                <Image
+                  src="https://avatars.githubusercontent.com/u/271157250?v=4"
+                  alt="Adnan Shaikh"
+                  width={120}
+                  height={120}
+                  className="h-auto w-full"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* ---------- Stack ---------- */}
+          <section
+            id="stack"
+            className="border-t border-[#2A2D4A] py-20 sm:py-28"
+          >
+            <h2 className="font-mono text-sm font-semibold text-[#A6A9C4]">
+              Stack
+            </h2>
+            <div className="mt-6">
+              <SkillsOrb />
+            </div>
+          </section>
+
+          {/* ---------- Experience ---------- */}
+          <section
+            id="experience"
+            className="border-t border-[#2A2D4A] py-20 sm:py-28"
+          >
+            <h2 className="font-mono text-sm font-semibold text-[#A6A9C4]">
+              Experience
+            </h2>
+            <div className="mt-6">
+              <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-4">
+                <h3 className="font-mono text-base font-semibold sm:text-lg">
+                  Faculty and Assistant In-Charge at CareerCreators
+                </h3>
+                <span className="shrink-0 font-mono text-xs text-[#6E7191]">
+                  Apr 2024 &ndash; May 2026
+                </span>
+              </div>
+              <p className="mt-3 max-w-prose text-base leading-[1.7] text-[#ECEEF5]/90 sm:text-[1.0625rem]">
+                Taught practical computer skills to students, covering MS
+                Office, design software, and the fundamentals of web
+                development and programming. Also helped run the center as
+                assistant in-charge alongside teaching.
+              </p>
+              <p className="mt-3 font-mono text-xs text-[#6E7191]">
+                MS Office, Photoshop, Illustrator, CorelDraw, Canva, HTML5,
+                CSS, JavaScript, Python basics
+              </p>
+            </div>
+          </section>
+
+          {/* ---------- Work ---------- */}
+          <section
+            id="work"
+            className="border-t border-[#2A2D4A] py-20 sm:py-28"
+          >
+            <h2 className="font-mono text-sm font-semibold text-[#A6A9C4]">
+              Things I've built
+            </h2>
+            <ol className="mt-6 space-y-5">
+              {projects.map((project) => (
+                <li
+                  key={project.name}
+                  className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-6"
+                >
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                    <h3 className="font-mono text-base font-semibold sm:text-lg">
+                      {project.name}
+                    </h3>
+                    <span className="shrink-0 font-mono text-xs text-[#6E7191]">
+                      {project.date}
+                    </span>
+                  </div>
+                  <p className="mt-3 max-w-prose text-[1rem] leading-[1.65] text-[#ECEEF5]/90">
+                    {project.description}
+                  </p>
+                  <p className="mt-3 font-mono text-xs text-[#6E7191]">
+                    {project.stack}
+                  </p>
+                  <a
+                    href={project.linkHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`${linkClass} mt-3 inline-block text-[0.9375rem] text-[#4FD1B3]`}
+                  >
+                    {project.linkLabel}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* ---------- Contact ---------- */}
+          <section
+            id="contact"
+            className="border-t border-[#2A2D4A] py-20 sm:py-28"
+          >
+            <h2 className="font-mono text-sm font-semibold text-[#A6A9C4]">
+              Get in touch
+            </h2>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a
+                href="mailto:adnanibrahimshaikh@gmail.com"
+                className="inline-flex items-center gap-2 rounded-full bg-[#ECEEF5] px-5 py-2.5 font-mono text-sm font-medium text-[#14162A] transition-colors hover:bg-white"
+              >
+                <Mail size={16} strokeWidth={2} />
+                adnanibrahimshaikh@gmail.com
+              </a>
+              <CopyEmailButton email="adnanibrahimshaikh@gmail.com" />
+            </div>
+
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-[0.9375rem]">
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/adnan-shaikh-4763233b2"
+                  className={`${linkClass} inline-flex items-center gap-2`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Linkedin size={15} strokeWidth={1.75} className="shrink-0 text-[#6E7191]" />
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/Adnan-Zhaikh"
+                  className={`${linkClass} inline-flex items-center gap-2`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Github size={15} strokeWidth={1.75} className="shrink-0 text-[#6E7191]" />
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://leetcode.com/AdnanZhaikh"
+                  className={`${linkClass} inline-flex items-center gap-2`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Code2 size={15} strokeWidth={1.75} className="shrink-0 text-[#6E7191]" />
+                  LeetCode
+                </a>
+              </li>
+            </ul>
+          </section>
+        </main>
+
+        <footer className="border-t border-[#2A2D4A] bg-[#14162A]">
+          <div className="mx-auto max-w-content px-4 py-6 font-mono text-xs text-[#6E7191] sm:px-6 sm:py-8 md:px-10">
+            Built with Next.js and Three.js.
+          </div>
+        </footer>
       </div>
-    </Html>
-  );
-}
-
-// Camera distance is derived from the sphere radius and the vertical FOV
-// below, rather than picked by eye, so the globe reliably fills ~90% of
-// whatever height the container ends up with instead of floating small
-// in the middle of it.
-const FOV = 42;
-const FILL_FRACTION = 0.92;
-
-export default function SkillsOrb() {
-  const iconRadius = 6;
-  const globeRadius = iconRadius * 0.86;
-  const cameraZ =
-    iconRadius / (FILL_FRACTION * Math.tan((FOV / 2) * (Math.PI / 180)));
-  const positions = useMemo(
-    () => fibonacciSphere(SKILLS.length, iconRadius),
-    [iconRadius]
-  );
-
-  return (
-    <div
-      className="relative mx-auto w-full"
-      // Inline styles here on purpose: this needs to reliably size the
-      // canvas regardless of the project's Tailwind content-glob setup
-      // (see tailwind.config.ts), and a fixed vh-based height fills the
-      // section instead of leaving dead space around a small globe.
-      style={{ height: "min(82vh, 880px)", maxWidth: "1400px" }}
-    >
-      <Canvas camera={{ position: [0, 0, cameraZ], fov: FOV }}>
-        <ambientLight intensity={1} />
-        <GridGlobe radius={globeRadius} />
-        {SKILLS.map((skill, i) => (
-          <SkillNode key={skill.label} skill={skill} position={positions[i]} />
-        ))}
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          autoRotate
-          autoRotateSpeed={0.8}
-          rotateSpeed={0.6}
-          enableDamping
-          dampingFactor={0.08}
-        />
-      </Canvas>
-      <p
-        className="pointer-events-none font-mono text-[10px] text-[#6E7191]"
-        style={{
-          position: "absolute",
-          left: "50%",
-          bottom: 6,
-          transform: "translateX(-50%)",
-        }}
-      >
-        Drag to explore
-      </p>
     </div>
   );
 }

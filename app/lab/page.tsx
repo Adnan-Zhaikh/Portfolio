@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Mail, Linkedin, Github, Code2 } from "lucide-react";
-import ParallaxScene from "@/components/lab/ParallaxScene";
+import ParallaxScene from "@/components/lab/Parallaxscene";
 import SkillsOrb from "@/components/lab/SkillsOrb";
 import CopyEmailButton from "@/components/lab/CopyEmailButton";
 import { projects } from "@/lib/projects";
@@ -28,7 +28,7 @@ export default function LabPage() {
             <a href="#hero" className="shrink-0 font-mono text-sm font-semibold">
               Adnan Shaikh
             </a>
-            <nav className="flex flex-wrap items-center gap-x-4 gap-y-1 sm:flex-nowrap sm:gap-6">
+            <nav className="hidden items-center gap-x-4 gap-y-1 sm:flex sm:gap-6">
               <a href="#stack" className={navLinkClass}>
                 Stack
               </a>
@@ -231,7 +231,7 @@ export default function LabPage() {
 
         <footer className="border-t border-[#2A2D4A] bg-[#14162A]">
           <div className="mx-auto max-w-content px-4 py-6 font-mono text-xs text-[#6E7191] sm:px-6 sm:py-8 md:px-10">
-            Built with Next.js and Three.js.
+            Last Update in October.
           </div>
         </footer>
       </div>

@@ -31,7 +31,12 @@ export default function ThemeToggle() {
   }
 
   return (
-    <button type="button" onClick={toggle} aria-label="Toggle dark mode" className="docs-icon-btn">
+    <button 
+      type="button" 
+      onClick={toggle} 
+      aria-label="Toggle dark mode" 
+      className="docs-icon-btn fixed bottom-6 right-4 z-30 sm:bottom-8 sm:right-6"
+    >
       {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
     </button>
   );

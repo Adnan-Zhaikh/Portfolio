@@ -123,9 +123,11 @@ function GridGlobe({ radius }: { radius: number }) {
 function SkillNode({
   skill,
   position,
+  isMobile,
 }: {
   skill: Skill;
   position: THREE.Vector3;
+  isMobile: boolean;
 }) {
   const { Icon, label, color } = skill;
   const elRef = useRef<HTMLDivElement>(null);
@@ -150,16 +152,20 @@ function SkillNode({
     <Html position={position} center occlude={false} zIndexRange={[10, 0]}>
       <div
         ref={elRef}
-        className="flex flex-col items-center gap-1"
+        className={`flex flex-col items-center ${isMobile ? "gap-0.5" : "gap-1"}`}
         style={{ opacity: 0 }}
       >
         <div
-          className="flex h-8 w-8 items-center justify-center rounded-full border"
+          className={`flex items-center justify-center rounded-full border ${
+            isMobile ? "h-6 w-6" : "h-8 w-8"
+          }`}
           style={{ background: "#1B1E38", borderColor: "#2A2D4A" }}
         >
-          <Icon size={16} color={color} />
+          <Icon size={isMobile ? 12 : 16} color={color} />
         </div>
-        <span className="whitespace-nowrap font-mono text-[8px] text-[#A6A9C4]">
+        <span className={`whitespace-nowrap font-mono text-[#A6A9C4] ${
+          isMobile ? "text-[7px]" : "text-[8px]"
+        }`}>
           {label}
         </span>
       </div>
@@ -175,7 +181,10 @@ const FOV = 42;
 const FILL_FRACTION = 0.92;
 
 export default function SkillsOrb() {
-  const iconRadius = 6;
+  // Detect mobile viewport
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  const iconRadius = isMobile ? 4.5 : 6;
   const globeRadius = iconRadius * 0.86;
   const cameraZ =
     iconRadius / (FILL_FRACTION * Math.tan((FOV / 2) * (Math.PI / 180)));
@@ -191,13 +200,21 @@ export default function SkillsOrb() {
       // canvas regardless of the project's Tailwind content-glob setup
       // (see tailwind.config.ts), and a fixed vh-based height fills the
       // section instead of leaving dead space around a small globe.
-      style={{ height: "min(82vh, 880px)", maxWidth: "1400px" }}
+      style={{ 
+        height: isMobile ? "min(70vh, 480px)" : "min(82vh, 880px)", 
+        maxWidth: "1400px" 
+      }}
     >
       <Canvas camera={{ position: [0, 0, cameraZ], fov: FOV }}>
         <ambientLight intensity={1} />
         <GridGlobe radius={globeRadius} />
         {SKILLS.map((skill, i) => (
-          <SkillNode key={skill.label} skill={skill} position={positions[i]} />
+          <SkillNode 
+            key={skill.label} 
+            skill={skill} 
+            position={positions[i]} 
+            isMobile={isMobile}
+          />
         ))}
         <OrbitControls
           enableZoom={false}
@@ -210,11 +227,13 @@ export default function SkillsOrb() {
         />
       </Canvas>
       <p
-        className="pointer-events-none font-mono text-[10px] text-[#6E7191]"
+        className={`pointer-events-none font-mono text-[#6E7191] ${
+          isMobile ? "text-[8px]" : "text-[10px]"
+        }`}
         style={{
           position: "absolute",
           left: "50%",
-          bottom: 6,
+          bottom: isMobile ? 4 : 6,
           transform: "translateX(-50%)",
         }}
       >

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { href: "/", label: "Home" },
@@ -15,7 +14,7 @@ export default function DocsHeader() {
   const pathname = usePathname();
   return (
     <header className="sticky top-3 z-20 mx-auto max-w-[1100px] px-3 pt-3 sm:px-6">
-      <div className="docs-card flex flex-col gap-2.5 px-3 py-3 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-4">
+      <div className="docs-card flex flex-col gap-2.5 px-3 py-3 backdrop-blur-md sm:flex-row sm:items-center sm:justify-start sm:gap-3 sm:px-4">
         <Link href="/" className="docs-text text-lg font-extrabold tracking-tight">
           Adnan.
         </Link>
@@ -32,10 +31,6 @@ export default function DocsHeader() {
             </Link>
           ))}
         </nav>
-
-        <div className="flex justify-center sm:justify-end">
-          <ThemeToggle />
-        </div>
       </div>
     </header>
   );

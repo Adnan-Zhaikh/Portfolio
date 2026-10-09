@@ -14,10 +14,13 @@ const links = [
 export default function DocsHeader() {
   const pathname = usePathname();
   return (
-    <header className="sticky top-3 z-20 mx-auto max-w-[1100px] px-4 pt-3 sm:px-6">
-      <div className="docs-card flex items-center justify-between gap-3 px-4 py-2.5 backdrop-blur-md">
-        <Link href="/" className="docs-text text-lg font-extrabold tracking-tight">Adnan.</Link>
-        <nav className="flex items-center gap-1 overflow-x-auto text-sm font-medium">
+    <header className="sticky top-3 z-20 mx-auto max-w-[1100px] px-3 pt-3 sm:px-6">
+      <div className="docs-card flex flex-col gap-2.5 px-3 py-3 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:px-4">
+        <Link href="/" className="docs-text text-lg font-extrabold tracking-tight">
+          Adnan.
+        </Link>
+
+        <nav className="flex flex-wrap items-center justify-center gap-1 text-sm font-medium sm:justify-start">
           {links.map((l) => (
             <Link
               key={l.href}
@@ -29,7 +32,10 @@ export default function DocsHeader() {
             </Link>
           ))}
         </nav>
-        <ThemeToggle />
+
+        <div className="flex justify-center sm:justify-end">
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

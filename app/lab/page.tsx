@@ -8,7 +8,7 @@ import CopyEmailButton from "@/components/lab/CopyEmailButton";
 import { projects } from "@/lib/projects";
 
 const navLinkClass =
-  "shrink-0 whitespace-nowrap font-mono text-xs text-[#A6A9C4] transition-colors hover:text-[#ECEEF5] sm:text-sm";
+  "rounded-full border border-transparent px-2.5 py-1.5 font-mono text-[10px] text-[#A6A9C4] transition-all hover:border-[#2A2D4A] hover:bg-[#1B1E33] hover:text-[#ECEEF5] sm:text-sm";
 
 const linkClass =
   "underline decoration-[#2A2D4A] decoration-1 underline-offset-[3px] transition-[color,text-decoration-color] hover:decoration-[#4FD1B3]";
@@ -23,12 +23,21 @@ export default function LabPage() {
       <ParallaxScene />
 
       <div className="relative z-10">
-        <header className="sticky top-4 z-20 mx-4 sm:mx-6 md:mx-10">
-          <div className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-full border border-[#2A2D4A] bg-[#14162A]/85 px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6">
-            <a href="#hero" className="shrink-0 font-mono text-sm font-semibold">
-              Adnan Shaikh
-            </a>
-            <nav className="flex flex-wrap items-center gap-x-4 gap-y-1 sm:flex-nowrap sm:gap-6">
+        <header className="sticky top-4 z-20 mx-3 sm:mx-6 md:mx-10">
+          <div className="mx-auto flex max-w-content flex-col gap-3 rounded-[28px] border border-[#2A2D4A] bg-[#14162A]/85 px-3 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-md sm:px-5">
+            <div className="flex items-center justify-between gap-3">
+              <a href="#hero" className="shrink-0 font-mono text-sm font-semibold sm:text-base">
+                Adnan Shaikh
+              </a>
+              <a
+                href="#contact"
+                className="shrink-0 whitespace-nowrap rounded-full bg-[#ECEEF5] px-3 py-1.5 font-mono text-[10px] font-medium text-[#14162A] transition-colors hover:bg-white sm:px-4 sm:text-xs"
+              >
+                Get in touch &rarr;
+              </a>
+            </div>
+
+            <nav className="flex flex-wrap items-center justify-center gap-2 text-center sm:justify-start">
               <a href="#stack" className={navLinkClass}>
                 Stack
               </a>
@@ -45,12 +54,6 @@ export default function LabPage() {
                 Classic
               </a>
             </nav>
-            <a
-              href="#contact"
-              className="shrink-0 whitespace-nowrap rounded-full bg-[#ECEEF5] px-4 py-1.5 font-mono text-xs font-medium text-[#14162A] transition-colors hover:bg-white"
-            >
-              Get in touch &rarr;
-            </a>
           </div>
         </header>
 

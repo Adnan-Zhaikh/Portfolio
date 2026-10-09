@@ -5,6 +5,7 @@ import { projects } from "@/lib/projects";
 const nav = [
   { href: "#experience", label: "Experience" },
   { href: "#work", label: "Work" },
+  { href: "/docs", label: "Documentation" },
   { href: "#now", label: "Now" },
   { href: "#contact", label: "Contact" },
 ];

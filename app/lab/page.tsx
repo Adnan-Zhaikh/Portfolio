@@ -38,6 +38,9 @@ export default function LabPage() {
               <a href="#work" className={navLinkClass}>
                 Work
               </a>
+              <a href="/docs" className={navLinkClass}>
+                Documentation
+              </a>
               <a href="/" className={navLinkClass}>
                 Classic
               </a>

@@ -36,13 +36,13 @@ export const projects: Project[] = [
     linkHref: "https://github.com/Adnan-Zhaikh/ecommerce-db",
   },
   {
-    name: "Expense Tracker",
-    date: "Aug 2026",
+    name: "Man Switch",
+    date: "Sept 2026",
     description:
-      "A small command-line tool for logging and categorizing personal expenses.",
+      "A self-hosted accountability tool that checks in on your goals - miss your Deadline and it pushes an alert straight to your phone.",
     stack: "Python",
     linkLabel: "Source on GitHub",
-    linkHref: "https://github.com/Adnan-Zhaikh/Expense-Tracker",
+    linkHref: "https://github.com/Adnan-Zhaikh/Man-Switch",
   },
   {
     name: "College coursework",

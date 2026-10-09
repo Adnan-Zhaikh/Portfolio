@@ -5,7 +5,6 @@ import { Mail, Linkedin, Github, Code2 } from "lucide-react";
 import ParallaxScene from "@/components/lab/ParallaxScene";
 import SkillsOrb from "@/components/lab/SkillsOrb";
 import CopyEmailButton from "@/components/lab/CopyEmailButton";
-import { projects } from "@/lib/projects";
 
 const navLinkClass =
   "rounded-full border border-transparent px-2.5 py-1.5 font-mono text-[10px] text-[#A6A9C4] transition-all hover:border-[#2A2D4A] hover:bg-[#1B1E33] hover:text-[#ECEEF5] sm:text-sm";
@@ -43,9 +42,6 @@ export default function LabPage() {
               </a>
               <a href="#experience" className={navLinkClass}>
                 Experience
-              </a>
-              <a href="#work" className={navLinkClass}>
-                Work
               </a>
               <a href="/docs" className={navLinkClass}>
                 Documentation
@@ -137,45 +133,33 @@ export default function LabPage() {
             </div>
           </section>
 
-          {/* ---------- Work ---------- */}
+          {/* ---------- Work / Project Archive ---------- */}
           <section
             id="work"
             className="border-t border-[#2A2D4A] py-20 sm:py-28"
           >
             <h2 className="font-mono text-sm font-semibold text-[#A6A9C4]">
-              Things I've built
+              Project archive
             </h2>
-            <ol className="mt-6 space-y-5">
-              {projects.map((project) => (
-                <li
-                  key={project.name}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-6"
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-6">
+              <p className="max-w-prose text-base leading-[1.7] text-[#ECEEF5]/90 sm:text-[1.0625rem]">
+                The full project list, repo filters, and detailed documentation live on the docs page so the lab stays focused on the creative experience.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <a
+                  href="/docs"
+                  className="inline-flex items-center rounded-full bg-[#ECEEF5] px-4 py-2 font-mono text-xs font-medium text-[#14162A] transition-colors hover:bg-white"
                 >
-                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                    <h3 className="font-mono text-base font-semibold sm:text-lg">
-                      {project.name}
-                    </h3>
-                    <span className="shrink-0 font-mono text-xs text-[#6E7191]">
-                      {project.date}
-                    </span>
-                  </div>
-                  <p className="mt-3 max-w-prose text-[1rem] leading-[1.65] text-[#ECEEF5]/90">
-                    {project.description}
-                  </p>
-                  <p className="mt-3 font-mono text-xs text-[#6E7191]">
-                    {project.stack}
-                  </p>
-                  <a
-                    href={project.linkHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`${linkClass} mt-3 inline-block text-[0.9375rem] text-[#4FD1B3]`}
-                  >
-                    {project.linkLabel}
-                  </a>
-                </li>
-              ))}
-            </ol>
+                  Browse projects
+                </a>
+                <a
+                  href="/docs/live"
+                  className="inline-flex items-center rounded-full border border-[#2A2D4A] bg-transparent px-4 py-2 font-mono text-xs font-medium text-[#ECEEF5] transition-colors hover:border-[#4FD1B3] hover:text-[#4FD1B3]"
+                >
+                  Live projects
+                </a>
+              </div>
+            </div>
           </section>
 
           {/* ---------- Contact ---------- */}

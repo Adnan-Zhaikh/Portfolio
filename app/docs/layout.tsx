@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import DocsHeader from "@/components/docs/DocsHeader";
+import ThemeToggle from "@/components/docs/ThemeToggle";
 import "./docs.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -23,6 +24,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
     <div className={`docs-root ${jakarta.variable}`} suppressHydrationWarning>
       <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       <DocsHeader />
+      <ThemeToggle />
       <main className="mx-auto max-w-[1100px] px-4 pb-24 sm:px-6">{children}</main>
     </div>
   );

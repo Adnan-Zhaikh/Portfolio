@@ -75,10 +75,6 @@ Open [http://localhost:3000](http://localhost:3000).
 - **Bio, experience, contact:** edit `app/page.tsx`. It's plain JSX.
 - **Colors and fonts:** `tailwind.config.ts`.
 
-## Roadmap
-
-- [ ] **Documentation site for each project.** A dedicated docs page for every project I showcase, with what it does, how it works, and what I learned. This is the main next step.
-
 ## Author
 
 **Adnan** — [@Adnan-Zhaikh](https://github.com/Adnan-Zhaikh)
